@@ -29,6 +29,24 @@ lspconfig.ts_ls.setup({
 	cmd = { "typescript-language-server", "--stdio" },
 })
 
+-- css
+lspconfig.cssls.setup({
+	settings = {
+		css = {
+			validate = true,
+			lint = {
+				unknownAtRules = "ignore",
+			},
+		},
+		scss = {
+			validate = true,
+		},
+		less = {
+			validate = true,
+		},
+	},
+})
+
 return {
 	{
 		"williamboman/mason.nvim",
@@ -42,7 +60,7 @@ return {
 		dependencies = { "williamboman/mason.nvim" },
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "ts_ls", "pyright", "clangd", "jdtls" },
+				ensure_installed = { "lua_ls", "ts_ls", "cssls", "pyright", "clangd", "jdtls" },
 				automatic_installation = true,
 			})
 		end,
@@ -52,7 +70,7 @@ return {
 		"neovim/nvim-lspconfig",
 		config = function()
 			local lspconfig = require("lspconfig")
-			local servers = { "lua_ls", "ts_ls", "pyright", "clangd", "jdtls" }
+			local servers = { "lua_ls", "ts_ls", "cssls", "pyright", "clangd", "jdtls" }
 
 			for _, server in ipairs(servers) do
 				lspconfig[server].setup({})
